@@ -1,9 +1,9 @@
-﻿using System.Collections;
+//must include these generics + [System.Serializable]
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public class JsonWrapper
 {
-    public AbilityData abilityData;
+    public Data newData;
 }
