@@ -1,24 +1,21 @@
-using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
-
-public class JsonLoader : MonoBehaviour {
-    public AbilityData abilityData = new AbilityData();
-    public AbilityList abilityList;
-    string fileName = "powerStrike.json";
+public class JsonLoader {
+    public Data newData = new Data();
+    public DataList newDataList;
+    string fileName = "newFileName.json";
     string targetPath;
+    
     void Start()
     {
-        targetPath = Application.dataPath + "/Resources/Abilities/" + fileName;
-        Debug.Log(targetPath);
-        // SaveAbility();
+        targetPath = Application.dataPath + "/nameOfPath/ToDirectory/" + fileName;
+        print(targetPath);
+        SaveData(); //when called allows you to save to your JSON schema
         ReadData();
     }
 
     void SaveAbility()
     {
-            JsonWrapper _wrapper = new JsonWrapper();
-            _wrapper.abilityData = abilityData;
+            JsonWrapper _wrapper = new JsonWrapper(); //connects to a JSON wrapper class to keep things pretty
+            _wrapper.newData = newData;
             string contents = JsonUtility.ToJson(_wrapper, true);
             System.IO.File.WriteAllText(targetPath, contents);
     }
@@ -31,18 +28,18 @@ public class JsonLoader : MonoBehaviour {
             {
                 string contents = System.IO.File.ReadAllText(targetPath);
                 JsonWrapper _wrapper = JsonUtility.FromJson<JsonWrapper>(contents);
-                abilityData = _wrapper.abilityData;
-                Debug.Log(targetPath + " has been loaded");
+                newData = _wrapper.newData;
+                print(targetPath + " has been loaded");
             }
             else
             {
-                Debug.Log("Unable to load Ability, file does not exist");
+                print("Unable to load Ability, file does not exist");
             }
         }
         catch (System.Exception ex)
         {
 
-            Debug.Log(ex.Message);
+            print(ex.Message);
         }
     }
 }
